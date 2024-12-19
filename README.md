@@ -6,6 +6,8 @@
 
 An intelligent MCP server that serves as a guardian of development knowledge, providing AI assistants with curated access to latest documentation and best practices.
 
+<a href="https://glama.ai/mcp/servers/bo39uifs3k"><img width="380" height="200" src="https://glama.ai/mcp/servers/bo39uifs3k/badge" alt="mcp-codex-keeper MCP server" /></a>
+
 ## 🚀 Quick Start
 
 Just tell your Cline/Sonnet assistant to add this to the configuration:
