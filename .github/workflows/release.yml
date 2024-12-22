@@ -1,0 +1,152 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate changelog
+        id: changelog
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: releases } = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 2
+            });
+
+            const previousTag = releases.length > 1 ? releases[1].tag_name : '';
+            const currentTag = context.ref.replace('refs/tags/', '');
+
+            const { data: commits } = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: previousTag,
+              head: currentTag
+            });
+
+            const categories = {
+              'Features': [],
+              'Bug Fixes': [],
+              'Performance': [],
+              'Documentation': [],
+              'Other': []
+            };
+
+            for (const commit of commits.commits) {
+              const message = commit.commit.message.split('\n')[0];
+              if (message.startsWith('feat:')) {
+                categories['Features'].push(message.slice(5).trim());
+              } else if (message.startsWith('fix:')) {
+                categories['Bug Fixes'].push(message.slice(4).trim());
+              } else if (message.startsWith('perf:')) {
+                categories['Performance'].push(message.slice(5).trim());
+              } else if (message.startsWith('docs:')) {
+                categories['Documentation'].push(message.slice(5).trim());
+              } else {
+                categories['Other'].push(message);
+              }
+            }
+
+            let changelog = `## Changes\n\n`;
+
+            for (const [category, items] of Object.entries(categories)) {
+              if (items.length > 0) {
+                changelog += `### ${category}\n\n`;
+                items.forEach(item => {
+                  changelog += `- ${item}\n`;
+                });
+                changelog += '\n';
+              }
+            }
+
+            core.setOutput('changelog', changelog);
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update documentation
+        run: |
+          npm run docs
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add docs
+          git commit -m "docs: update for release ${{ github.ref }}"
+          git push
+
+  notify:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on success
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const release = context.ref.replace('refs/tags/', '');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: 1,
+              body: `🎉 Version ${release} has been successfully released!\n\nSee the [release notes](https://github.com/${owner}/${repo}/releases/tag/${release}) for more details.`
+            });
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const release = context.ref.replace('refs/tags/', '');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: 1,
+              body: `❌ Release ${release} failed.\n\nPlease check the [Actions tab](https://github.com/${owner}/${repo}/actions) for more details.`
+            });

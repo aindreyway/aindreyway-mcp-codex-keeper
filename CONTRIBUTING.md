@@ -1,215 +1,261 @@
 # Contributing to MCP Codex Keeper
 
-👍 Thank you for considering contributing to MCP Codex Keeper! This document explains how to contribute effectively.
+Thank you for considering contributing to MCP Codex Keeper! This guide will help you understand our development process and standards.
 
-## Project Documentation Structure
+## 🚀 Development Setup
 
-We maintain three main documentation files:
+### Prerequisites
 
-1. **README.md** - User-focused documentation
+- Node.js ≥ 18.0.0
+- npm ≥ 7.0.0
+- Git
 
-   - Installation and setup
-   - Basic usage examples
-   - Available tools and features
-   - Configuration options
+### Initial Setup
 
-2. **CONTRIBUTING.md** (this file) - Developer guide
-
-   - How to contribute
-   - Development setup
-   - Coding standards
-   - Pull request process
-
-3. **PROJECT_SUMMARY.md** - Technical documentation
-   - Detailed architecture
-   - Implementation details
-   - Design decisions
-   - Internal workflows
-
-## Development Setup
-
-1. Clone and prepare:
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/aindreyway/mcp-codex-keeper.git
    cd mcp-codex-keeper
+   ```
+
+2. Install dependencies:
+
+   ```bash
    npm install
    ```
 
-2. Set up environment:
+3. Set up development environment:
 
-   ```bash
-   cp .env.example .env
+   Add to your Cline/Claude configuration (e.g., claude_desktop_config.json):
+
+   ```json
+   {
+     "mcpServers": {
+       "local-mcp-codex-keeper": {
+         "command": "node",
+         "args": ["./build/index.js"],
+         "env": {
+           "NODE_ENV": "development"
+         }
+       }
+     }
+   }
    ```
 
-   Configure:
-
-   - `MCP_ENV=local` for local development
-   - `STORAGE_PATH=data` for local storage
-
-3. Development Scripts:
+4. Start development:
 
    ```bash
-   # Run in local mode
-   npm run local
-
    # Watch mode for development
    npm run dev
    ```
 
-## Development Guidelines
+## 📁 Project Structure
 
-### Code Style
+```
+aindreyway-mcp-codex-keeper/
+├── src/                 # Source code
+│   ├── types/          # TypeScript types
+│   ├── utils/          # Utilities
+│   ├── validators/     # Input validation
+│   └── tests/          # Tests
+│       ├── unit/           # Unit tests
+│       ├── integration/    # Integration tests
+│       ├── performance/    # Performance tests
+│       └── e2e/           # End-to-end tests
+├── docs/               # Documentation
+└── scripts/           # Build scripts
+```
 
-1. TypeScript:
+## 🧪 Testing
+
+### Test Organization
+
+1. **Unit Tests** (`src/tests/unit/`)
+
+   - Test individual components
+   - Mock external dependencies
+   - Fast execution
+   - Example:
+     ```typescript
+     describe('CacheManager', () => {
+       it('should store and retrieve values', () => {
+         const cache = new CacheManager();
+         cache.set('key', 'value');
+         expect(cache.get('key')).toBe('value');
+       });
+     });
+     ```
+
+2. **Integration Tests** (`src/tests/integration/`)
+
+   - Test component interactions
+   - Minimal mocking
+   - Real file system operations
+   - Example:
+     ```typescript
+     describe('DocumentationServer', () => {
+       it('should handle complete workflow', async () => {
+         const server = new DocumentationServer();
+         await server.addDoc({ name: 'Test' });
+         const docs = await server.listDocs();
+         expect(docs).toContain('Test');
+       });
+     });
+     ```
+
+3. **Performance Tests** (`src/tests/performance/`)
+
+   - Load testing
+   - Stress testing
+   - Benchmarks
+   - Example:
+     ```typescript
+     describe('CacheManager Performance', () => {
+       it('should handle concurrent operations', async () => {
+         const cache = new CacheManager();
+         const start = performance.now();
+         // Test code
+         expect(performance.now() - start).toBeLessThan(100);
+       });
+     });
+     ```
+
+4. **E2E Tests** (`src/tests/e2e/`)
+   - Complete workflows
+   - Real external services
+   - User scenarios
+
+### Running Tests
+
+```bash
+# Run all tests
+npm run test:all
+
+# Run specific test types
+npm run test:unit
+npm run test:integration
+npm run test:performance
+npm run test:e2e
+
+# Watch mode for development
+npm run test:watch:unit
+npm run test:watch:integration
+
+# Generate coverage reports
+npm run test:coverage:all
+```
+
+## 📝 Code Guidelines
+
+### TypeScript
+
+1. **Type Safety**
 
    - Use strict mode
-   - Properly type everything
-   - Use interfaces for complex types
-   - Document public APIs with JSDoc
+   - Avoid `any`
+   - Define interfaces
+   - Document types
 
-2. File Organization:
+2. **Code Style**
 
-   - Keep files focused and small
-   - Group related functionality
-   - Use clear, descriptive names
-   - Follow existing patterns
+   - Use ESLint
+   - Follow Prettier
+   - Clear naming
+   - Consistent patterns
 
-3. Error Handling:
-   - Use custom error classes
-   - Provide meaningful messages
-   - Log appropriately
-   - Handle edge cases
+3. **Documentation**
+   - JSDoc for public APIs
+   - Clear comments
+   - Usage examples
+   - Type documentation
 
-### Testing
+### Git Workflow
 
-1. Local Testing:
+1. **Branch Names**
 
-   ```bash
-   # Run in local mode
-   npm run local
-
-   # Test your changes
+   ```
+   feature/description
+   fix/description
+   docs/description
+   test/description
    ```
 
-2. Production Testing:
+2. **Commit Messages**
 
-   ```bash
-   # Install globally
-   npm i -g @aindreyway/mcp-codex-keeper
+   ```
+   type(scope): description
 
-   # Test as end user
+   [optional body]
+   [optional footer]
    ```
 
-## Making Changes
+   Types: feat, fix, docs, style, refactor, test, chore
 
-1. Create a feature branch:
-
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. Make your changes:
-
-   - Follow code style guidelines
-   - Add/update tests if needed
+3. **Pull Requests**
+   - Clear title
+   - Detailed description
+   - Reference issues
+   - Include tests
    - Update documentation
 
-3. Commit your changes:
+### System Files
+
+1. **Git Ignored Files**
+
+   - `.codexkeeper/` (automatically added)
+   - `node_modules/`
+   - `build/`
+   - `coverage/`
+
+2. **Development Files**
+   - Keep test data in `test-data/`
+   - Store fixtures in `src/tests/fixtures/`
+
+## 🚀 Release Process
+
+1. **Preparation**
 
    ```bash
-   git add .
-   git commit -m "type: description of changes"
+   # Run all checks
+   npm run validate
+
+   # Build project
+   npm run build
    ```
 
-   Use conventional commit messages:
+2. **Version Update**
 
-   - feat: New feature
-   - fix: Bug fix
-   - docs: Documentation
-   - style: Formatting
-   - refactor: Code restructuring
-   - test: Tests
-   - chore: Maintenance
-
-4. Push your branch:
    ```bash
-   git push origin feature/your-feature-name
+   # Choose one:
+   npm version patch  # Bug fixes (0.0.X)
+   npm version minor  # Features (0.X.0)
+   npm version major  # Breaking (X.0.0)
    ```
 
-## Pull Request Process
+3. **Publication**
 
-1. Update Documentation:
-
-   - Update README.md if adding features
-   - Update PROJECT_SUMMARY.md for technical changes
-   - Add comments for complex code
-
-2. Submit PR:
-
-   - Clear title and description
-   - Reference any related issues
-   - Explain your changes
-   - List any breaking changes
-
-3. Review Process:
-
-   - Address review comments
-   - Keep discussions focused
-   - Be patient and respectful
-
-4. After Merge:
-   - Delete your branch
-   - Verify changes in production
-   - Update related issues
-
-## Version Management
-
-We use semantic versioning:
-
-1. Version Numbers:
-
-   - MAJOR (x.0.0): Breaking changes
-   - MINOR (0.x.0): New features
-   - PATCH (0.0.x): Bug fixes
-
-2. Version Update:
    ```bash
-   npm run deploy
+   # Test publication
+   npm publish --dry-run
+
+   # Actual publication
+   npm publish --access public
    ```
-   This handles:
-   - Version bumping
-   - Building
-   - Publishing
-   - Git tags
 
-## Best Practices
+4. **Verification**
+   ```bash
+   # Test installation
+   npx @aindreyway/mcp-codex-keeper@latest
+   ```
 
-1. Documentation:
+## 🤝 Getting Help
 
-   - Keep it current
-   - Be clear and concise
-   - Include examples
-   - Explain why, not just what
-
-2. Code:
-
-   - Write self-documenting code
-   - Keep functions small
-   - Use meaningful names
-   - Follow SOLID principles
-
-3. Git:
-   - Small, focused commits
-   - Clear commit messages
-   - Keep main branch stable
-   - Rebase before merging
-
-## Getting Help
-
+- Read [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)
 - Check existing issues
 - Ask in discussions
-- Read PROJECT_SUMMARY.md
-- Contact maintainers
+- Join our community
 
-Remember: Quality over speed. Take time to do things right!
+## 📄 License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.

@@ -1,0 +1,35 @@
+# Source files
+src/
+tests/
+
+# Development files
+.env*
+.eslintrc*
+jest.config*
+tsconfig.json
+.gitignore
+.clinerules*
+
+# Development directories
+node_modules/
+coverage/
+reports/
+docs/
+
+# Local data and cache
+.codexkeeper/
+
+# Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test files
+*.test.ts
+*.spec.ts
+
+# Build artifacts
+*.tsbuildinfo

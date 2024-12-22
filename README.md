@@ -1,133 +1,84 @@
-# Aindreyway MCP Codex Keeper
+# 📚 MCP Codex Keeper
 
-![MCP Server](https://img.shields.io/badge/MCP-Server-blue)
+> Your AI assistant's documentation manager
+
 ![Version](https://img.shields.io/badge/version-1.1.10-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-An intelligent MCP server that serves as a guardian of development knowledge, providing AI assistants with curated access to latest documentation and best practices.
+MCP Codex Keeper helps AI assistants access and manage development documentation efficiently. It automatically handles documentation storage, updates, and search, so you can focus on your work.
 
-<a href="https://glama.ai/mcp/servers/bo39uifs3k"><img width="380" height="200" src="https://glama.ai/mcp/servers/bo39uifs3k/badge" alt="mcp-codex-keeper MCP server" /></a>
+## ⚡️ Quick Start
 
-## 🚀 Quick Start
+```bash
+# Using npx (recommended)
+npx @aindreyway/mcp-codex-keeper@latest
 
-### Prerequisites
+# Or install globally
+npm install -g @aindreyway/mcp-codex-keeper
+```
 
-1. Make sure you have Node.js installed (version 18 or higher):
-
-   ```bash
-   node --version
-   ```
-
-2. Install or update npm (comes with Node.js):
-
-   ```bash
-   npm install -g npm@latest
-   ```
-
-3. Verify npx is available:
-   ```bash
-   npx --version
-   ```
-   If not found, install it:
-   ```bash
-   npm install -g npx
-   ```
-
-### Configuration
-
-Add this to your Cline/Sonnet configuration:
+Add to your AI assistant's configuration (e.g., claude_desktop_config.json):
 
 ```json
-"aindreyway-codex-keeper": {
-  "command": "npx",
-  "args": ["-y", "@aindreyway/mcp-codex-keeper@latest"],
-  "disabled": false,
-  "env": {
-    "npm_config_cache_max": "1024000000",
-    "NODE_OPTIONS": "--max-old-space-size=256"
+{
+  "mcpServers": {
+    "aindreyway-mcp-codex-keeper": {
+      "command": "npx",
+      "args": ["-y", "@aindreyway/mcp-codex-keeper@latest"]
+    }
   }
 }
 ```
 
-That's it! The assistant will handle everything automatically.
+That's it! Your AI assistant will now have access to:
 
-> **Note:** This server uses `npx` for direct npm package execution, which is optimal for Node.js/TypeScript MCP servers, providing seamless integration with the npm ecosystem and TypeScript tooling.
+- Development best practices
+- Coding standards
+- Documentation
+- Security guidelines
+- And more!
 
-## 🎯 What Your Assistant Can Do
+## 🎯 Examples
 
-Ask your assistant to:
+Ask your AI assistant to:
 
-- "Show me the latest React documentation"
-- "Find best practices for TypeScript development"
-- "Update documentation for Node.js"
-- "Search for information about async/await"
+```
+"Show me TypeScript best practices"
+"Find SOLID principles documentation"
+"What are the current security guidelines?"
+"How to write good unit tests?"
+```
 
-## 🛠 Available Tools
+## ✨ Features
 
-### list_documentation
+- 📖 **Auto-managed documentation**
 
-Lists all available documentation sources with optional category filtering.
+  - Always up-to-date
+  - Locally cached for speed
+  - Automatically organized
 
-### add_documentation
+- 🔍 **Smart search**
 
-Add new documentation sources to the knowledge base.
+  - Full-text search
+  - Category filtering
+  - Fast results
 
-### update_documentation
+- 🛠 **Project analysis**
+  - Tech stack detection
+  - Documentation recommendations
+  - Best practices suggestions
 
-Update existing documentation to get the latest content.
+## 📦 Requirements
 
-### search_documentation
+- Node.js ≥ 18.0.0
+- npm ≥ 7.0.0
 
-Search through documentation with category filtering.
+## 🤝 Support
 
-## 📚 Documentation Categories
+- 📖 [Full Documentation](./docs)
+- 🐛 [Report Issues](https://github.com/aindreyway/mcp-codex-keeper/issues)
+- 💡 [Contributing](./CONTRIBUTING.md)
 
-- Frontend
-- Backend
-- Language
-- MCP
-- MCP-Guide
-- Database
-- DevOps
-- Security
-- Testing
-- Architecture
-- Mobile
-- AI
-- Cloud
+## 📄 License
 
-## 🔧 Features
-
-The server automatically:
-
-- Manages documentation from various sources
-- Keeps track of latest development best practices
-- Provides intelligent search capabilities
-- Updates documentation automatically
-- Supports tagging and categorization
-- Optimizes memory usage:
-  - Uses streaming for large files
-  - Automatic cache cleanup
-  - Memory-efficient search
-  - Size and age limits for cached files
-  - Limited heap size (256MB)
-
-## 📝 License
-
-MIT License - feel free to use this in your projects!
-
-## 👤 Author
-
-**aindreyway**
-
-- GitHub: [@aindreyway](https://github.com/aindreyway)
-
-## 📖 Documentation
-
-- [User Guide](README.md) - Installation and usage instructions
-- [Contributing Guide](CONTRIBUTING.md) - How to contribute to the project
-- [Technical Documentation](PROJECT_SUMMARY.md) - Detailed technical information
-
-## ⭐️ Support
-
-Give a ⭐️ if this project helped you! If you want to contribute, please check our [Contributing Guide](CONTRIBUTING.md).
+MIT © [aindreyway](https://github.com/aindreyway)

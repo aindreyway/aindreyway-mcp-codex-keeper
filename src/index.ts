@@ -10,6 +10,9 @@
 
 import { DocumentationServer } from './server.js';
 import { execSync } from 'child_process';
+import { ContentFetcher } from './utils/content-fetcher.js';
+
+export { ContentFetcher };
 
 /**
  * Check if required dependencies are installed
@@ -61,9 +64,7 @@ process.on('unhandledRejection', (reason, promise) => {
 checkDependencies();
 
 // Start server
-const server = new DocumentationServer();
-
-server.run().catch(error => {
+DocumentationServer.start().catch(error => {
   console.error('[Fatal Error] Failed to start server:', error);
   process.exit(1);
 });

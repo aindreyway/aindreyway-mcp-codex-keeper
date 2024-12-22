@@ -1,0 +1,55 @@
+{
+  "categories": {
+    "Base.Standards": {
+      "description": "Universal programming standards and specifications",
+      "allowedTags": [
+        "best-practices",
+        "principles",
+        "patterns",
+        "conventions",
+        "clean-code",
+        "code-quality",
+        "design-patterns",
+        "architecture",
+        "oop",
+        "solid",
+        "security",
+        "web",
+        "owasp",
+        "git",
+        "commits",
+        "versioning",
+        "releases"
+      ]
+    },
+    "Base.Testing": {
+      "description": "Universal testing principles and practices",
+      "allowedTags": [
+        "testing",
+        "test-pyramid",
+        "unit-tests",
+        "integration-tests",
+        "e2e-tests",
+        "tdd",
+        "best-practices"
+      ]
+    },
+    "Base.Tools": {
+      "description": "Universal development tools and workflows",
+      "allowedTags": ["git", "version-control", "workflow", "collaboration", "ci-cd", "deployment"]
+    },
+    "Project.MCP": {
+      "description": "MCP-specific documentation",
+      "allowedTags": ["mcp", "sdk", "api", "server", "client", "protocol", "development"]
+    },
+    "Project.Stack": {
+      "description": "Project-specific technology stack documentation",
+      "allowedTags": ["javascript", "typescript", "node", "jest", "react", "express"]
+    }
+  },
+  "defaultCategory": "Other",
+  "defaultCategoryConfig": {
+    "description": "Other documentation types",
+    "allowedTags": []
+  }
+}

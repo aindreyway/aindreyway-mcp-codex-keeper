@@ -23,14 +23,30 @@ data/
 .env
 .env.local
 
-# Test coverage
+# Test coverage and reports
 coverage/
 .nyc_output/
+test-report/
+junit.xml
+
+# Logs
+debug.log
+full-debug.log
+full-trace.log
+mcp-debug.log
+mcp-rpc.log
+openai-debug.log
+openai-trace.log
 
 # Temporary files
 tmp/
 temp/
 *.tmp
 
-# Internal documentation
-PROJECT_SUMMARY.md
+# Development data
+.mcp-data
+.clinerules*
+
+# Local system directories
+.codexkeeper/
+.codexkeeper

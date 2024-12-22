@@ -1,0 +1,85 @@
+{
+  "docs": [
+    {
+      "name": "SOLID Principles Guide",
+      "url": "https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design",
+      "description": "Comprehensive guide to SOLID principles in software development",
+      "category": "Base.Standards",
+      "tags": ["solid", "oop", "principles", "best-practices"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Design Patterns Catalog",
+      "url": "https://refactoring.guru/design-patterns/catalog",
+      "description": "Comprehensive catalog of software design patterns with examples",
+      "category": "Base.Standards",
+      "tags": ["design-patterns", "architecture", "oop", "patterns"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Clean Code Principles",
+      "url": "https://gist.githubusercontent.com/wojteklu/73c6914cc446146b8b533c0988cf8d29/raw",
+      "alternativeUrl": "https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/README.md",
+      "description": "Universal Clean Code principles for any programming language",
+      "category": "Base.Standards",
+      "tags": ["clean-code", "best-practices", "code-quality"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Unit Testing Principles",
+      "url": "https://martinfowler.com/bliki/UnitTest.html",
+      "description": "Martin Fowler's guide to unit testing principles and practices",
+      "category": "Base.Testing",
+      "tags": ["testing", "unit-tests", "best-practices", "tdd"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "OWASP Top Ten",
+      "url": "https://owasp.org/www-project-top-ten/",
+      "description": "Top 10 web application security risks and prevention",
+      "category": "Base.Standards",
+      "tags": ["security", "web", "owasp"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Conventional Commits",
+      "url": "https://www.conventionalcommits.org/",
+      "description": "Specification for standardized commit messages",
+      "category": "Base.Standards",
+      "tags": ["git", "commits", "versioning"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Semantic Versioning",
+      "url": "https://semver.org/",
+      "description": "Semantic Versioning Specification",
+      "category": "Base.Standards",
+      "tags": ["versioning", "releases"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Git Workflow Guide",
+      "url": "https://www.atlassian.com/git/tutorials/comparing-workflows",
+      "description": "Comprehensive guide to Git workflows and team collaboration",
+      "category": "Base.Tools",
+      "tags": ["git", "version-control", "workflow", "collaboration"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "TypeScript Handbook",
+      "url": "https://www.typescriptlang.org/docs/handbook/",
+      "description": "Official TypeScript documentation and guides",
+      "category": "Project.Stack",
+      "tags": ["typescript", "javascript", "node"],
+      "version": "1.0.0"
+    },
+    {
+      "name": "Node.js Documentation",
+      "url": "https://nodejs.org/docs/latest/api/",
+      "description": "Official Node.js API documentation",
+      "category": "Project.Stack",
+      "tags": ["node", "javascript"],
+      "version": "1.0.0"
+    }
+  ]
+}
